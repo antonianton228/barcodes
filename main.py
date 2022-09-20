@@ -1,28 +1,43 @@
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import StringProperty
-from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
-from kivy.clock import mainthread
-from kivy.core.clipboard import Clipboard as Cb
-import threading
-import socket
+import time
+Builder.load_string('''
+<CameraClick>:
+    orientation: 'vertical'
+    Camera:
+        id: camera
+        resolution: (640, 480)
+        play: False
+    ToggleButton:
+        text: 'Play'
+        on_press: camera.play = not camera.play
+        size_hint_y: None
+        height: '48dp'
+    Button:
+        text: 'Capture'
+        size_hint_y: None
+        height: '48dp'
+        on_press: root.capture()
+''')
 
-KV = '''
-MyBl:
-        Label:
-                font_size: "30sp"
-                text: root.data_label
-'''
 
-class MyBl(BoxLayout):
-    data_label = StringProperty('!!!')
+class CameraClick(BoxLayout):
+    def capture(self):
+        '''
+        Function to capture the images and give them the names
+        according to their captured time and date.
+        '''
+        camera = self.ids['camera']
+        timestr = time.strftime("%Y%m%d_%H%M%S")
+        camera.export_to_png("IMG_" + timestr)
+        print("Captured")
 
-class MyApp(App):
-    running = True
+
+class TestCamera(App):
+
     def build(self):
-        return Builder.load_string(KV)
-    def on_stop(self):
-        running = False
-MyApp().run()
+        return CameraClick()
+
+
+TestCamera().run()

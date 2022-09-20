@@ -1,16 +1,28 @@
-# This is a sample Python script.
+from kivy.app import App
+from kivy.lang import Builder
+from kivy.uix.boxlayout import BoxLayout
+from kivy.properties import StringProperty
+from kivy.uix.button import Button
+from kivy.uix.textinput import TextInput
+from kivy.clock import mainthread
+from kivy.core.clipboard import Clipboard as Cb
+import threading
+import socket
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+KV = '''
+MyBl:
+        Label:
+                font_size: "30sp"
+                text: root.data_label
+'''
 
+class MyBl(BoxLayout):
+    data_label = StringProperty('!!!')
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+class MyApp(App):
+    running = True
+    def build(self):
+        return Builder.load_string(KV)
+    def on_stop(self):
+        running = False
+MyApp().run()

@@ -4,10 +4,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import StringProperty
 import time
 from pyzbar import pyzbar
-from glob import glob
 import cv2
-
-
 
 
 def decode_1(image):
@@ -30,8 +27,6 @@ Builder.load_string('''
         id: camera
         resolution: (640, 480)
         play: True
-        do_rotation: False
-        rotation: 90
     ToggleButton:
         text: 'Play'
         on_press: camera.play = not camera.play
@@ -43,14 +38,15 @@ Builder.load_string('''
         height: '48dp'
         on_press: root.button()
     Label:
+        id: label
         font_size: "30sp"
         text: root.data_label
-        
 ''')
 
 
 class CameraClick(BoxLayout):
     data_label = StringProperty()
+
     def __init__(self, **kwargs):
         super(CameraClick, self).__init__(**kwargs)
         self.data_label = 'unpress'
@@ -72,7 +68,6 @@ class CameraClick(BoxLayout):
         else:
             self.data_label = 'unpress'
         self.flag = not self.flag
-
 
 
 class TestCamera(App):

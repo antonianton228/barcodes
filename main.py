@@ -61,10 +61,10 @@ class CameraClick(BoxLayout):
         Function to capture the images and give them the names
         according to their captured time and date.
         '''
-        # camera = self.ids['camera']
-        # timestr = time.strftime("%Y%m%d_%H%M%S")
-        # camera.export_to_png("IMG_" + timestr)
-        # print("Captured")
+        camera = self.ids['camera']
+        timestr = time.strftime("%Y%m%d_%H%M%S")
+        camera.export_to_png("IMG_" + timestr)
+        print("Captured")
 
     def button(self):
         if self.flag:

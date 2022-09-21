@@ -3,21 +3,19 @@ from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import StringProperty
 import time
-from pyzbar import pyzbar
-import cv2
 
 
-def decode_1(image):
-    # decodes all barcodes from an image
-    decoded_objects = pyzbar.decode(image)
-    for obj in decoded_objects:
-        # draw the barcode
-        print(f"Обнаружен штрих-код:\n{obj}")
-        # print barcode type & data
-        print("Тип:", obj.type)
-        print("Данные:", obj.data)
-        print()
-    return image
+# def decode_1(image):
+#     # decodes all barcodes from an image
+#     decoded_objects = pyzbar.decode(image)
+#     for obj in decoded_objects:
+#         # draw the barcode
+#         print(f"Обнаружен штрих-код:\n{obj}")
+#         # print barcode type & data
+#         print("Тип:", obj.type)
+#         print("Данные:", obj.data)
+#         print()
+#     return image
 
 
 Builder.load_string('''
